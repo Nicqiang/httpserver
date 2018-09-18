@@ -1,6 +1,11 @@
 package com.nicqiang.test.httpserver.controller;
 
+import io.swagger.annotations.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -9,14 +14,31 @@ import org.springframework.web.bind.annotation.RestController;
  * @Author: nicqiang
  * @DATE: 2018/6/6
  */
+@Api(tags = "Mock")
 @RestController
-@RequestMapping("/mock")
+@RequestMapping("api/mock")
 public class MockServerController {
-
-    @RequestMapping("/test")
+    private static final Logger logger = LoggerFactory.getLogger(MockServerController.class);
+    @ApiOperation(value = "测试接口")
+    @RequestMapping("/get")
     public Object test(){
+        logger.info("test");
+        logger.debug("debug");
         return "success";
     }
+
+    /**
+     * 参数在rest 路径中
+     * @param value
+     * @return
+     */
+    @ApiOperation("get value")
+    @RequestMapping(value = "/get/{value}",method = {RequestMethod.GET,RequestMethod.POST})
+    public String get(@ApiParam(required = true,name = "value",value = "值") @PathVariable String value){
+        logger.info("get value: {}",value);
+        return value;
+    }
+
 
 
 }
