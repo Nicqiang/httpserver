@@ -43,6 +43,12 @@ public class MockServerController {
         logger.info("value={}",JSONObject.toJSON(object));
         return JSONObject.toJSONString(object);
     }
+    
+    @GetMapping("/printValue")
+    public String printValue(String value){
+        logger.info("value={}",value);
+        return value;
+    }
 
 
 
