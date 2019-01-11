@@ -1,12 +1,10 @@
 package com.nicqiang.test.httpserver.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by
@@ -24,6 +22,7 @@ public class MockServerController {
     public Object test(){
         logger.info("test");
         logger.debug("debug");
+        //
         return "success";
     }
 
@@ -38,6 +37,14 @@ public class MockServerController {
         logger.info("get value: {}",value);
         return value;
     }
+
+    @PostMapping("/post")
+    public String getValue(@RequestBody JSONObject object){
+        logger.info("value={}",JSONObject.toJSON(object));
+        return JSONObject.toJSONString(object);
+    }
+
+
 
 
 
